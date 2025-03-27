@@ -1,0 +1,189 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage[vietnamese]{babel}
+
+\title{Thực hiện chức năng ứng dụng SupplyChain}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{1. Tạo người dùng (Quản trị viên) - createUser}
+
+Bạn cần thực hiện lệnh này nhiều lần để tạo người dùng với các vai trò khác nhau (manufacturer, wholesaler, distributor, retailer, consumer).
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["createUser","<tên_người_dùng>","<email>","manufacturer","<tổ_chức>"]}'
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["createUser","<tên_người_dùng>","<email>","wholesaler","<tổ_chức>"]}'
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["createUser","<tên_người_dùng>","<email>","distributor","<tổ_chức>"]}'
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["createUser","<tên_người_dùng>","<email>","retailer","<tổ_chức>"]}'
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["createUser","<tên_người_dùng>","<email>","consumer","<tổ_chức>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["createUser","manufacturer1","manu@sample.com","manufacturer","manufacturerorg"]}'
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["createUser","wholesaler1","whole@sample.com","wholesaler","middlemenorg"]}'
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["createUser","distributor1","dist@sample.com","distributor","middlemenorg"]}'
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["createUser","retailer1","retail@sample.com","retailer","consumerorg"]}'
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["createUser","consumer1","cons@sample.com","consumer","consumerorg"]}'
+\end{lstlisting}
+
+\section{2. Đăng nhập (Đăng nhập người dùng) - signIn}
+
+Trong ví dụ code bạn cung cấp, không có lệnh \texttt{peer chaincode invoke} trực tiếp cho chức năng \texttt{signIn}. Chức năng này thường được xử lý bởi tầng middleware (Node.js) của ứng dụng, nơi nó sẽ tương tác với chaincode để xác thực người dùng. Bạn sẽ cần xem code trong thư mục \texttt{web-app/servers/} để biết cách chức năng này được thực hiện.
+
+\section{3. Tạo sản phẩm (Nhà sản xuất) - createProduct}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["createProduct","<tên_sản_phẩm>","<ID_người_tạo>","<giá_khởi_điểm>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["createProduct","Laptop XYZ","manufacturer1","1200"]}'
+\end{lstlisting}
+
+\section{4. Cập nhật sản phẩm (Nhà sản xuất, Nhà bán buôn, Nhà phân phối, Nhà bán lẻ) - updateProduct}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["updateProduct","<ID_sản_phẩm>","<ID_người_cập_nhật>","<tên_mới>","<giá_mới>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["updateProduct","Laptop XYZ","wholesaler1","Laptop XYZ Pro","1300"]}'
+\end{lstlisting}
+
+\section{5. Gửi cho nhà bán buôn - sendToWholesaler}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["sendToWholesaler","<ID_sản_phẩm>","<ID_người_gửi>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["sendToWholesaler","Laptop XYZ","manufacturer1"]}'
+\end{lstlisting}
+
+\section{6. Gửi cho nhà phân phối - sendToDistributor}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["sendToDistributer","<ID_sản_phẩm>","<ID_người_gửi>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["sendToDistributer","Laptop XYZ","wholesaler1"]}'
+\end{lstlisting}
+
+\section{7. Gửi cho nhà bán lẻ - sendToRetailer}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["sendToRetailer","<ID_sản_phẩm>","<ID_người_gửi>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["sendToRetailer","Laptop XYZ","distributor1"]}'
+\end{lstlisting}
+
+\section{8. Bán cho người tiêu dùng - sellToConsumer}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["sellToConsumer","<ID_sản_phẩm>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["sellToConsumer","Laptop XYZ"]}'
+\end{lstlisting}
+
+\section{9. Truy vấn tài sản (Truy vấn theo ID sản phẩm) - QueryAsset}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["queryAsset","<ID_sản_phẩm>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["queryAsset","Laptop XYZ"]}'
+\end{lstlisting}
+
+\section{10. Truy vấn tất cả (Tất cả) - QueryAll}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["queryAll","User"]}'
+\end{lstlisting}
+
+Để truy vấn tất cả sản phẩm, bạn có thể thử:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["queryAll","Product"]}'
+\end{lstlisting}
+
+Hoặc đơn giản là:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["queryAll",""]}'
+\end{lstlisting}
+
+Bạn có thể cần xem lại code chaincode để biết chính xác cách \texttt{QueryAll} được triển khai và những tham số nó chấp nhận.
+
+\section{11. Đặt hàng sản phẩm (Người tiêu dùng đặt hàng, ID sản phẩm -> Nhà bán lẻ) - orderProduct}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["orderProduct","<ID_người_tiêu_dùng>","<ID_sản_phẩm>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["orderProduct","consumer1","Laptop XYZ"]}'
+\end{lstlisting}
+
+\section{12. Sản phẩm đã giao (Nhà bán lẻ cập nhật) - deliveredProduct}
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -c '{"Args":["deliveredProduct","<ID_sản_phẩm>"]}'
+\end{lstlisting}
+
+Ví dụ:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode invoke -o orderer.sample.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C supplychainchannel -n supplychaincc -c '{"Args":["deliveredProduct","Laptop XYZ"]}'
+\end{lstlisting}
+
+\section{13. Khởi tạo - Khởi tạo bộ đếm về giá trị NIL - Init}
+
+Chức năng \texttt{Init} thường được gọi một lần duy nhất khi bạn khởi tạo (instantiate) hoặc nâng cấp (upgrade) chaincode. Bạn đã thấy ví dụ về lệnh này trong bước 15 của phần "Steps to up the network using commands":
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode instantiate -o orderer.sample.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -l golang -v 1.0 -c '{"Args":[""]}' -P "OR ('ManufacturerMSP.peer','MiddleMenMSP.peer', 'ConsumerMSP.peer')"
+\end{lstlisting}
+
+Hoặc lệnh upgrade:
+
+\begin{lstlisting}[breaklines=true]
+peer chaincode upgrade -o orderer.sample.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/sample.com/orderers/orderer.sample.com/msp/tlscacerts/tlsca.sample.com-cert.pem -C $CHANNEL_NAME -n supplychaincc -l golang -v 1.2 -c '{"Args":[""]}' -P "OR ('ManufacturerMSP.peer','MiddleMenMSP.peer', 'ConsumerMSP.peer')"
+\end{lstlisting}
+
+Bạn không cần gọi \texttt{Init} trực tiếp bằng \texttt{peer chaincode invoke} sau khi chaincode đã được khởi tạo hoặc nâng cấp.
+
+\section{14. Gọi - Để gọi từng chức năng trong chaincode - Invoke}
+
+\texttt{Invoke} là hành động chung để gọi một chức năng chaincode. Các lệnh trên chính là các ví dụ về việc "gọi" (invoke) các chức năng khác nhau.
+
+\end{document}
