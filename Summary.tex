@@ -1,0 +1,56 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+
+% Set margin adjustments if necessary
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{\textbf{Tóm tắt Dự án Chuỗi cung ứng sử dụng Hyperledger Fabric và React}}
+\date{24/3/2025}
+
+\begin{document}
+\maketitle
+
+\section{Giới thiệu công nghệ Nền tảng}
+
+Dự án này tập trung vào việc phát triển một ứng dụng quản lý chuỗi cung ứng sử dụng nền tảng Hyperledger Fabric và thư viện React.js. Mục tiêu chính là tăng cường tính minh bạch, an toàn và khả năng theo dõi sản phẩm trong toàn bộ chuỗi cung ứng, từ nhà sản xuất đến người tiêu dùng.
+\subsection{Blockchain}
+Blockchain là một hệ thống lưu trữ và truyền tải thông tin giao dịch ngang hàng, dựa trên chuỗi các khối liên kết được mã hóa. Mỗi khối chứa thông tin về khối trước đó và các giao dịch. Công nghệ này nổi bật với tính bất biến và bảo mật cao.
+
+\subsection{Hyperledger Fabric}
+
+Hyperledger Fabric là một blockchain phân quyền, cho phép kiểm soát quyền truy cập và tăng cường bảo mật cho các ứng dụng doanh nghiệp. Mạng lưới Hyperledger Fabric bao gồm các tổ chức (Org), dịch vụ nút đặt hàng (ONS) và các nút mạng (Peer).
+
+\section{Dự án Chuỗi Cung ứng}
+
+\subsection{Mục tiêu và Đối tượng}
+
+Mục tiêu của dự án là xây dựng một ứng dụng quản lý chuỗi cung ứng trên Hyperledger Fabric, hướng đến các đối tượng sử dụng chính là nhà sản xuất, nhà bán sỉ/lẻ, nhà phân phối và người tiêu dùng. Ứng dụng này nhằm mục đích theo dõi nguồn gốc sản phẩm, quản lý hàng hóa và chia sẻ thông tin trong chuỗi cung ứng.
+
+\section{Ứng dụng SupplyChain-HLF}
+
+\subsection{Tổng quan và Chức năng}
+
+Ứng dụng SupplyChain-HLF sử dụng Hyperledger Fabric để theo dõi, chia sẻ, xác minh và kiểm toán sản phẩm trong chuỗi cung ứng. Các chức năng chính bao gồm đăng ký người dùng, tạo và quản lý sản phẩm, theo dõi sản phẩm, đặt hàng và xác nhận nhận hàng.
+
+\subsection{Các Thành phần Chính}
+
+Dự án sử dụng React.js cho giao diện người dùng, Node.js cho API trung gian và SDK, Hyperledger Fabric cho mạng blockchain và Golang cho chaincode.
+
+\subsection{Kiến trúc Ứng dụng (Tóm tắt)}
+
+Ứng dụng hoạt động dựa trên quy trình đăng ký người dùng và cấp quyền truy cập. Quyền truy cập được quản lý thông qua các chính sách. Vòng đời sản phẩm được quản lý từ khi nhà sản xuất tạo sản phẩm. Quá trình theo dõi sản phẩm diễn ra qua các giai đoạn đến khi người tiêu dùng nhận hàng. Các vai trò chính bao gồm Quản trị viên (đăng ký và cấp quyền), Nhà sản xuất (tạo sản phẩm), Nhà bán sỉ/phân phối/bán lẻ (vận chuyển sản phẩm) và Người tiêu dùng (đặt hàng và nhận hàng).
+
+\section{Nguồn Tham khảo và Mã Nguồn}
+
+Tài liệu tham khảo về Hyperledger Fabric và blockchain được cung cấp, cùng với liên kết đến mã nguồn của ứng dụng trên GitHub.
+
+\section{Kết luận}
+
+Ứng dụng SupplyChain-HLF là một giải pháp tiềm năng để cải thiện hiệu quả và độ tin cậy của quản lý chuỗi cung ứng thông qua việc ứng dụng công nghệ Hyperledger Fabric và React.
+
+\end{document}
